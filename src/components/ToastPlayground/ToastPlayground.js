@@ -23,7 +23,11 @@ function ToastPlayground() {
                 <h1>Toast Playground</h1>
             </header>
 
-            <ToastShelf />
+            <ToastShelf
+                role="region"
+                aria-live="polite"
+                aria-label="Notification"
+            />
 
             <form className={styles.controlsWrapper} onSubmit={handleSubmit}>
                 <div className={styles.row}>
