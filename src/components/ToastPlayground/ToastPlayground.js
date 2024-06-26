@@ -1,32 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import Button from '../Button';
 
 import styles from './ToastPlayground.module.css';
 // import Toast from '../Toast/Toast';
 import ToastShelf from '../ToastShelf/ToastShelf';
-
-const VARIANT_OPTIONS = ['notice', 'warning', 'success', 'error'];
+import { ToastContext } from '../ToastProvider/ToastProvider';
 
 function ToastPlayground() {
-    const [message, setMessage] = React.useState('');
-    const [variant, setVariant] = React.useState('notice');
-    const [toasts, setToasts] = React.useState([]);
-
-    function handleSubmit(e) {
-        e.preventDefault();
-        setToasts([
-            ...toasts,
-            {
-                message,
-                variant,
-                id: crypto.randomUUID(),
-            },
-        ]);
-        setMessage('');
-        setVariant('notice');
-    }
-
+    const {
+        handleSubmit,
+        message,
+        variantOptions,
+        setMessage,
+        variant,
+        setVariant,
+    } = useContext(ToastContext);
     return (
         <div className={styles.wrapper}>
             <header>
@@ -34,7 +23,7 @@ function ToastPlayground() {
                 <h1>Toast Playground</h1>
             </header>
 
-            <ToastShelf toasts={toasts} setToasts={setToasts} />
+            <ToastShelf />
 
             <form className={styles.controlsWrapper} onSubmit={handleSubmit}>
                 <div className={styles.row}>
@@ -61,7 +50,7 @@ function ToastPlayground() {
                     <div
                         className={`${styles.inputWrapper} ${styles.radioWrapper}`}
                     >
-                        {VARIANT_OPTIONS.map((option) => (
+                        {variantOptions.map((option) => (
                             <label htmlFor={`variant-${option}`} key={option}>
                                 <input
                                     id={`variant-${option}`}

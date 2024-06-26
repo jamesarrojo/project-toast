@@ -10,6 +10,7 @@ import {
 import VisuallyHidden from '../VisuallyHidden';
 
 import styles from './Toast.module.css';
+import { ToastContext } from '../ToastProvider/ToastProvider';
 
 const ICONS_BY_VARIANT = {
     notice: Info,
@@ -18,7 +19,8 @@ const ICONS_BY_VARIANT = {
     error: AlertOctagon,
 };
 
-function Toast({ children, variant, dismiss, id }) {
+function Toast({ children, variant, id }) {
+    const { dismiss } = React.useContext(ToastContext);
     const Tag = ICONS_BY_VARIANT[variant];
     return (
         <div className={`${styles.toast} ${styles[variant]}`}>
